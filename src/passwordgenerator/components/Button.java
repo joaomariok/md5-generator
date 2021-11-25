@@ -78,6 +78,11 @@ public class Button extends JButton {
 	}
 	
 	public void setOk() {
+		setBorderPainted(true);
+		setBorder(BorderFactory.createLineBorder(Colors.GREEN_COLOR.darker().darker(), 2));
+	}
+	
+	public void setDefault() {
 		setBorderPainted(false);
 		setBorder(null);
 	}

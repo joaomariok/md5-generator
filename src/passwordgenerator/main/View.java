@@ -107,6 +107,7 @@ public class View extends JFrame {
 	
 	private JPasswordField createPasswordField() {
 		JPasswordField field = new JPasswordField();
+		
 		field.setBackground(Colors.SECONDARY_BACKGROUND_COLOR);
 		field.setForeground(Colors.PRIMARY_FOREGROUND_COLOR);
 		field.setCaretColor(Colors.PRIMARY_FOREGROUND_COLOR);
@@ -170,20 +171,21 @@ public class View extends JFrame {
 	}
 	
 	private Button createHashButton() {
-		Button button = new Button("MD5");
+		Button button = new Button("Hash");
 		
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String text = new String(passwordField.getPassword());
-				button.setOk();
+				button.setDefault();
+				
+				System.out.println("[View] Hash button pressed. passwordField: {" + text + "}");
 				
 				if (text.isEmpty()) {
 					System.out.println("[View] Empty password");
 					button.setWarning();
+					return;
 				}
-				
-				System.out.println("[View] Hash button pressed: " + text);
 				
 				String hash = _controller.Execute(text);
 				
@@ -201,15 +203,17 @@ public class View extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("[View] Copy button pressed");
-				button.setOk();
+				button.setDefault();
 				
 				String text = hashLabel.getText();
 				
 				if (text.isEmpty()) {
 					System.out.println("[View] Empty hash");
 					button.setWarning();
+					return;
 				}
 				
+				button.setOk();				
 				_controller.CopyHashToClipboard(text);
 			}
 		});
@@ -223,7 +227,6 @@ public class View extends JFrame {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				System.out.println("[View] Clear button pressed");
 				resetPanelToDefault();
 			}
@@ -240,8 +243,8 @@ public class View extends JFrame {
 		_controller.ClearClipboard();
 		_passwordVisible = false;
 		viewButton.setIcon(getViewButtonImageIcon(_passwordVisible));
-		hashButton.setOk();
-		copyButton.setOk();
+		hashButton.setDefault();
+		copyButton.setDefault();
 	}
 
 	private ImageIcon getViewButtonImageIcon(boolean isOpen) {
@@ -249,7 +252,7 @@ public class View extends JFrame {
 						? new ImageIcon("src//resources//eye_open_light.png")
 						: new ImageIcon("src//resources//eye_close_light.png");
 		
-		return new ImageIcon(image.getImage().getScaledInstance( ICON_SIZE, ICON_SIZE,  java.awt.Image.SCALE_SMOOTH ));
+		return new ImageIcon(image.getImage().getScaledInstance( ICON_SIZE, ICON_SIZE, java.awt.Image.SCALE_SMOOTH ));
 	}
 
 }

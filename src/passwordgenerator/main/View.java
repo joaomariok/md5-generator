@@ -39,7 +39,7 @@ public class View extends JFrame {
 	private final int SCALE = 1;
 	private final int ICON_SIZE = 16;
 	private final int DEFAULT_COMPONENT_HEIGHT = 30;
-	private final int DEFAULT_PASSWORD_WIDTH = 235;
+	private final int DEFAULT_PASSWORD_WIDTH = 225;
 	
 	private final String EMPTY_STRING = "";
 	
